@@ -25,11 +25,12 @@ public class Course implements Serializable {
     private Integer duration;
     private Integer capacity;
     private String longDescription;
+    private Long senseiId;
 
     public Course() {
     }
 
-    public Course(Long courseId, String title, String category, String date, String shortDescription, String location, Integer duration, Integer capacity, String longDescription) {
+    public Course(Long courseId, String title, String category, String date, String shortDescription, String location, Integer duration, Integer capacity, String longDescription, Long senseiId) {
         this.courseId = courseId;
         this.title = title;
         this.category = category;
@@ -39,6 +40,7 @@ public class Course implements Serializable {
         this.duration = duration;
         this.capacity = capacity;
         this.longDescription = longDescription;
+        this.senseiId = senseiId;
     }
 
     public Long getCourseId() {
@@ -113,17 +115,25 @@ public class Course implements Serializable {
         this.longDescription = longDescription;
     }
 
+    public Long getSenseiId() {
+        return senseiId;
+    }
+
+    public void setSenseiId(Long senseiId) {
+        this.senseiId = senseiId;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Course course = (Course) o;
-        return Objects.equals(getCourseId(), course.getCourseId()) && Objects.equals(getTitle(), course.getTitle()) && Objects.equals(getCategory(), course.getCategory()) && Objects.equals(getDate(), course.getDate()) && Objects.equals(getShortDescription(), course.getShortDescription()) && Objects.equals(getLocation(), course.getLocation()) && Objects.equals(getDuration(), course.getDuration()) && Objects.equals(getCapacity(), course.getCapacity()) && Objects.equals(getLongDescription(), course.getLongDescription());
+        return Objects.equals(getCourseId(), course.getCourseId()) && Objects.equals(getTitle(), course.getTitle()) && Objects.equals(getCategory(), course.getCategory()) && Objects.equals(getDate(), course.getDate()) && Objects.equals(getShortDescription(), course.getShortDescription()) && Objects.equals(getLocation(), course.getLocation()) && Objects.equals(getDuration(), course.getDuration()) && Objects.equals(getCapacity(), course.getCapacity()) && Objects.equals(getLongDescription(), course.getLongDescription()) && Objects.equals(getSenseiId(), course.getSenseiId());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getCourseId(), getTitle(), getCategory(), getDate(), getShortDescription(), getLocation(), getDuration(), getCapacity(), getLongDescription());
+        return Objects.hash(getCourseId(), getTitle(), getCategory(), getDate(), getShortDescription(), getLocation(), getDuration(), getCapacity(), getLongDescription(), getSenseiId());
     }
 
     @Override
@@ -138,6 +148,7 @@ public class Course implements Serializable {
                 ", duration=" + duration +
                 ", capacity=" + capacity +
                 ", longDescription='" + longDescription + '\'' +
+                ", senseiId=" + senseiId +
                 '}';
     }
 }

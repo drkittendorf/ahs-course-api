@@ -51,7 +51,8 @@ public class CourseControllerTest {
                 "Florida",
                 60,
                 20,
-                "This is a long description"
+                "This is a long description",
+                1L
         );
 
         mockCourseJson = mapper.writeValueAsString(mockCourse);
@@ -65,7 +66,8 @@ public class CourseControllerTest {
                 "Florida",
                 120,
                 25,
-                "This is a long description"
+                "This is a long description",
+                2L
         );
 
         Course mockCourse2 = new Course(
@@ -77,7 +79,8 @@ public class CourseControllerTest {
                 "Florida",
                 30,
                 40,
-                "This is a long description"
+                "This is a long description",
+                3L
         );
 
         allMockCourses.add(mockCourse);
@@ -164,7 +167,8 @@ public class CourseControllerTest {
                 "Florida",
                 45,
                 35,
-                "This is a long description"
+                "This is a long description",
+                3L
         );
 
         String inputJson = mapper.writeValueAsString(input);

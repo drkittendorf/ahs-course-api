@@ -18,7 +18,8 @@ public class CourseController {
     public List<Course> getAllCourses(@RequestParam(required = false) String title,
                                       @RequestParam(required = false) String category,
                                       @RequestParam(required = false) String location,
-                                      @RequestParam(required = false) String date) {
+                                      @RequestParam(required = false) String date,
+                                      @RequestParam(required = false) Long senseiId) {
         if (title != null) {
             return courseRepo.findByTitle(title);
         }
@@ -30,6 +31,9 @@ public class CourseController {
         }
         else if (date !=null) {
             return courseRepo.findByDate(date);
+        }
+        else if (senseiId !=null) {
+            return courseRepo.findBySenseiId(senseiId);
         }
         return courseRepo.findAll();
     }
