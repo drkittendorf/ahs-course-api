@@ -1,7 +1,6 @@
 package com.adhocsensei.ahscourseservice.dao;
 
 import com.adhocsensei.ahscourseservice.dto.Course;
-import com.netflix.discovery.converters.Auto;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -56,7 +55,7 @@ public class CourseRepositoryTest {
     @Test
     public void shouldAddAndGetCourseFromDatabase() {
 
-        Course fromRepo = repo.findById(course1.getCourseId()).get();
+        Course fromRepo = repo.findById(course1.getId()).get();
         assertEquals(course1, fromRepo);
     }
 
@@ -65,15 +64,15 @@ public class CourseRepositoryTest {
         course1.setCapacity(1);
         repo.save(course1);
 
-        Course fromRepo = repo.findById(course1.getCourseId()).get();
+        Course fromRepo = repo.findById(course1.getId()).get();
         assertEquals(course1, fromRepo);
     }
 
     @Test
     public void shouldDeleteCourseFromDatabase() {
-        repo.deleteById(course1.getCourseId());
+        repo.deleteById(course1.getId());
 
-        Optional<Course> fromRepo = repo.findById(course1.getCourseId());
+        Optional<Course> fromRepo = repo.findById(course1.getId());
 
         assertFalse(fromRepo.isPresent());
     }

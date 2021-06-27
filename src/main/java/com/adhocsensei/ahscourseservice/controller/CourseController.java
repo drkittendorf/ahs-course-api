@@ -1,7 +1,9 @@
 package com.adhocsensei.ahscourseservice.controller;
 
 import com.adhocsensei.ahscourseservice.dao.CourseRepository;
+import com.adhocsensei.ahscourseservice.dao.UserRepository;
 import com.adhocsensei.ahscourseservice.dto.Course;
+import com.adhocsensei.ahscourseservice.dto.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,12 +16,14 @@ public class CourseController {
     @Autowired
     CourseRepository courseRepo;
 
+    @Autowired
+    UserRepository userRepo;
+
     @GetMapping("/course")
     public List<Course> getAllCourses(@RequestParam(required = false) String title,
                                       @RequestParam(required = false) String category,
                                       @RequestParam(required = false) String location,
-                                      @RequestParam(required = false) String date,
-                                      @RequestParam(required = false) Long senseiId) {
+                                      @RequestParam(required = false) String date) {
         if (title != null) {
             return courseRepo.findByTitle(title);
         }
@@ -32,10 +36,8 @@ public class CourseController {
         else if (date !=null) {
             return courseRepo.findByDate(date);
         }
-        else if (senseiId !=null) {
-            return courseRepo.findBySenseiId(senseiId);
-        }
-        return courseRepo.findAll();
+        List<Course> allCourses = courseRepo.findAll();
+        return allCourses;
     }
 
     @GetMapping("/course/{id}")
@@ -43,22 +45,28 @@ public class CourseController {
         return courseRepo.findById(id);
     }
 
-    @PostMapping("/course")
-    public Course createCourse(@RequestBody Course course) {
-        return courseRepo.save(course);
+    @PostMapping("/senseidash/{id}/course")
+    public Course createCourse(@PathVariable Long id, @RequestBody Course course) {
+        User user = userRepo.getById(id);
+        course.setSenseiId(user.getId());
+        course.setUser(user);
+        Course savedCourse = courseRepo.save(course);
+        Long cId = savedCourse.getId();
+        Course desiredCourse = courseRepo.getById(cId);
+        return desiredCourse;
     }
 
     @PutMapping("/course/{id}")
     public void updateCourse(@PathVariable Long id, @RequestBody Course course) {
         Optional<Course> courseOptional = courseRepo.findById(id);
         if (courseOptional.isPresent()) {
-            course.setCourseId(id);
+            course.setId(id);
             courseRepo.save(course);
         }
     }
 
     @DeleteMapping("/course/{id}")
     public void deleteCourseById(@PathVariable Long id) {
-        courseRepo.deleteById(id);
+        courseRepo.delete(courseRepo.getById(id));
     }
 }

@@ -13,5 +13,4 @@ public interface CourseRepository extends JpaRepository<Course, Long> {
     List<Course> findByLocation(String location);
     List<Course> findByDate(String date);
     List<Course> findBySenseiId(Long senseiId);
-//    find created courses by user
 }
